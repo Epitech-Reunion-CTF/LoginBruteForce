@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  ssh-server:
+    build:
+      context: ./ssh-image
+      dockerfile: Dockerfile
+    ports:
+      - "2222:22"  # Port pour SSH
+    volumes:
+      - ./src:/usr/share/nginx/html  # Volume pour le serveur web (optionnel si vous ne voulez pas copier depuis src)
+    restart: unless-stopped
+
+  web-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"  # Port pour Nginx
+    restart: unless-stopped

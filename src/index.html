@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Website</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+        <h1>Welcome to my website</h1>
+    </header>
+    <main>
+        <section id="number-generator">
+            <h2>Try generating a random number</h2>
+            <button onclick="generateNumber()">Generate Number</button>
+            <p id="numberDisplay"></p>
+        </section>
+        <section id="about">
+            <h2>About This Page</h2>
+            <p>This page is a simple demonstration of basic web design and interactive features.</p>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 My Website | <a href="#home">Back to top</a></p>
+    </footer>
+    <script>
+        function generateNumber() {
+            const number = Math.floor(Math.random() * 100) + 1;
+            document.getElementById('numberDisplay').innerText = number;
+        }
+    </script>
+</body>
+</html>
