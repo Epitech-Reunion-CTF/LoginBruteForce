@@ -14,11 +14,22 @@ RUN echo 'jaquie:snickers' | chpasswd
 RUN echo "jaquie ALL=(ALL) NOPASSWD:/bin/cat" >> /etc/sudoers.d/jaquie \
     && chmod 440 /etc/sudoers.d/jaquie
 
+# Bloquer l'accès à certaines commandes (ex : kill, reboot, shutdown)
+RUN echo "jaquie ALL=(ALL) NOPASSWD:/bin/cat, /bin/ls, /bin/echo, /usr/bin/whoami" >> /etc/sudoers.d/jaquie \
+    && chmod 440 /etc/sudoers.d/jaquie
+
 # Créer un fichier flag.txt et y insérer un message
 RUN touch /home/jaquie/flag.txt
 RUN echo 'epictf{d0cker_1s_4w3s0m3}' > /home/jaquie/flag.txt
 RUN chown root:root /home/jaquie/flag.txt
 RUN chmod 700 /home/jaquie/flag.txt
+
+# Restreindre les permissions pour empêcher la création/suppression de fichiers
+RUN chown root:root /home/jaquie \
+    && chmod 555 /home/jaquie
+
+# Supprimer l'accès aux commandes potentiellement nuisibles
+RUN chmod 000 /bin/kill /sbin/reboot /sbin/shutdown /bin/rm /bin/rmdir
 
 # Configurer SSH
 RUN sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
